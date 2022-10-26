@@ -1,0 +1,26 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy import integrate
+
+k = 0.1
+m = 500
+
+def V(k, x):
+    return k*(x**6)
+
+def T(m, x0, k):
+    x = np.arange(0, x0, 0.01)
+    den = (V(k,x0)-V(k,x))**0.5
+    T = ((8*m)**0.5)*(integrate.simpson(1/den, 0.1))
+    return T
+
+print(T(m, 10, k))
+
+'''
+plt.plot(pot, x, color='blue')
+plt.title('oscilloscopio', color='blue')
+plt.xlabel('x')
+plt.ylabel('V')
+plt.show()
+'''
