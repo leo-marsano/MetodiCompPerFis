@@ -32,13 +32,19 @@ plt.title(r'5 random walker con probabilità simmetrica per $\phi$')
 plt.savefig('5rw.png')
 plt.show()
 
-# 1000 Random walk
+### 1000 Random walk
 Nrw = 1000
 xx = np.empty((0,3))
 yy = np.empty((0,3))
 
+distquad=np.empty((0, Nsteps[2]+1))
+distquad2=np.empty((0, Nsteps[2]+1))
+
 for i in range(Nrw):
     x, y = random_walk2Dsimm(rwstep, Nsteps[2])
+    x2, y2 = random_walk2Dsimm(2*rwstep, Nsteps[2])
+    distquad = np.append(distquad, np.sum([x*x, y*y], axis=0))
+    distquad2 = np.append(distquad2, np.sum([x2*x2, y2*y2], axis=0))
     xx = np.append(xx, np.array([[ x[Nsteps[0]],  x[Nsteps[1]], x[Nsteps[2]] ]]), axis=0)
     yy = np.append(yy, np.array([[ y[Nsteps[0]],  y[Nsteps[1]], y[Nsteps[2]] ]]), axis=0)
 
@@ -51,4 +57,15 @@ plt.ylabel('y')
 plt.legend()
 plt.title(r'posizione di 1000 random walker con probabilità simmetrica per $\phi$')
 plt.savefig('1000rw.png')
+plt.show()
+
+
+### Distanza quadratica media
+plt.plot(np.mean((distquad.reshape(1000, 1001))**0.5, axis=0), '-', label='passo1')
+plt.plot(np.mean((distquad2.reshape(1000, 1001))**0.5, axis=0), '-', label='passo2')
+plt.ylabel(r'$ \Delta \bar x$')
+plt.xlabel('numero passi')
+plt.legend()
+plt.title('distanza quadratica media per la diffuzione simmetrica')
+plt.savefig('distquadmed.png')
 plt.show()
