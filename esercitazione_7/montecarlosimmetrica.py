@@ -15,21 +15,40 @@ def random_walk2Dsimm(step, N):
         deltay[r+1] = sposty
     return deltax, deltay
 
-
+### 5 Random walk
 Nsteps = np.array([10, 100, 1000])
-Nrw = 100
+Nrw = 5
 rwstep = 1
 
 for i in range(Nrw):
     x, y = random_walk2Dsimm(rwstep, Nsteps[2])
-    plt.plot(x[Nsteps[2]], y[Nsteps[2]], 'ro', color = 'lightgreen',label='random walk {:}'.format(i+1))
-    plt.plot(x[Nsteps[1]+1], y[Nsteps[1]+1], 'ro', color = 'purple',label='random walk {:}'.format(i+1))
-    plt.plot(x[Nsteps[0]+1], y[Nsteps[0]+1], 'ro', color = 'darkorange', label='random walk {:}'.format(i+1))
+    plt.plot(x, y,label='random walk {:}'.format(i+1))
+ 
+plt.plot(0, 0, "ro", linewidth=10, color='black', label='starting point')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.legend()
+plt.title(r'5 random walker con probabilità simmetrica per $\phi$')
+plt.savefig('5rw.png')
+plt.show()
 
-    
+# 1000 Random walk
+Nrw = 1000
+xx = np.empty((0,3))
+yy = np.empty((0,3))
+
+for i in range(Nrw):
+    x, y = random_walk2Dsimm(rwstep, Nsteps[2])
+    xx = np.append(xx, np.array([[ x[Nsteps[0]],  x[Nsteps[1]], x[Nsteps[2]] ]]), axis=0)
+    yy = np.append(yy, np.array([[ y[Nsteps[0]],  y[Nsteps[1]], y[Nsteps[2]] ]]), axis=0)
+
+plt.plot(xx[:,2], yy[:,2], 'o', color='darkorange', label='dopo 1000 passi')
+plt.plot(xx[:,1], yy[:,1], 'o', color='purple', label='dopo 100 passi')
+plt.plot(xx[:,0], yy[:,0], 'o', color='lightgreen', label='dopo 10 passi')
 plt.plot(0, 0, 'ro', linewidth=10, color='black', label='starting point')
 plt.xlabel('x')
 plt.ylabel('y')
-#plt.legend()
+plt.legend()
+plt.title(r'posizione di 1000 random walker con probabilità simmetrica per $\phi$')
 plt.savefig('1000rw.png')
 plt.show()
