@@ -1,4 +1,3 @@
-import sys
 import numpy as np
 import matplotlib.pyplot as plt
 import math
@@ -46,27 +45,35 @@ for i in range(Nrw):
     x, y = random_walk2Dasimm(rwstep, xicum)
     plt.plot(x, y,label='random walk {:}'.format(i+1))
  
+plt.plot(0, 0, "ro", linewidth=10, color='black', label='starting point')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.legend()
+plt.title(r'5 random walker con probabilità asimmetrica di $\phi$ : $p(\phi)= \frac{1}{4}sin(\frac{\phi}{2})$')
+plt.savefig('5rw_asim.png')
+plt.show()
+
+### 1000 Random walk
+Nrw = 1000
+xx = np.empty((0,3))
+yy = np.empty((0,3))
+
+for i in range(Nrw):
+    ycum = np.random.random(nsample)
+    xicum = invcum(ycum)
+    x, y = random_walk2Dasimm(rwstep, xicum)
+    xx = np.append(xx, np.array([[ x[Nsteps[0]],  x[Nsteps[1]], x[Nsteps[2]] ]]), axis=0)
+    yy = np.append(yy, np.array([[ y[Nsteps[0]],  y[Nsteps[1]], y[Nsteps[2]] ]]), axis=0)
+
+plt.plot(xx[:,0], yy[:,0], 'o', color='lightgreen', label='dopo 10 passi')
+plt.plot(xx[:,1], yy[:,1], 'o', color='purple', label='dopo 100 passi')
+plt.plot(xx[:,2], yy[:,2], 'o', color='darkorange', label='dopo 1000 passi')
 plt.plot(0, 0, 'ro', linewidth=10, color='black', label='starting point')
 plt.xlabel('x')
 plt.ylabel('y')
 plt.legend()
-plt.title(r'5 random walk con probabilita\' asimmetrica di $\phi$ : $p(\phi)= \frac{1}{4}sin(\frac{\phi}{2})$')
-plt.savefig('5rw_asim.png')
-plt.show()
-
-### 100 Random walk
-for i in range(Nrw):
-    x, y = random_walk2Dsimm(rwstep, Nsteps[2])
-    plt.plot(x[Nsteps[2]], y[Nsteps[2]], 'ro', color = 'lightgreen',label='random walk {:}'.format(i+1))
-    plt.plot(x[Nsteps[1]+1], y[Nsteps[1]+1], 'ro', color = 'purple',label='random walk {:}'.format(i+1))
-    plt.plot(x[Nsteps[0]+1], y[Nsteps[0]+1], 'ro', color = 'darkorange', label='random walk {:}'.format(i+1))
-
-    
-plt.plot(0, 0, 'ro', linewidth=10, color='black', label='starting point')
-plt.xlabel('x')
-plt.ylabel('y')
-#plt.legend()
-plt.savefig('1000rw.png')
+plt.title(r'posizione di 1000 random walker con probabilità asimmetrica di $\phi$ : $p(\phi)= \frac{1}{4}sin(\frac{\phi}{2})$')
+plt.savefig('1000rw_asim.png')
 plt.show()
 
 
