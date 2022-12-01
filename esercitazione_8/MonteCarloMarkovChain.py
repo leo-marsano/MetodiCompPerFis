@@ -53,7 +53,7 @@ plt.title('dati csv', fontsize = 12)
 
 
 
-### Confronto
+### Stimo
 params=(-0.18, 10, -5, 5, 0.8)
 plt.errorbar(energy, flow, yerr=ferr, color='salmon', label='dati')
 plt.plot(energy, func(params, energy), color='cyan', label='funzione')
@@ -80,7 +80,7 @@ sampler_fl = emcee.EnsembleSampler(nw, ndim_fl, lnprob_fl, args=(energy, flow, f
 print("Running production...")
 sampler_fl.run_mcmc(p0, 3000, progress=True); #per evitare print
 
-# Grafico campionamenti per i parametri liberi
+# Grafico walker per i parametri liberi
 fig, axes = plt.subplots(ndim_fl, figsize=(10, 9), sharex=True)
 samples_fl = sampler_fl.get_chain()
 
