@@ -1,0 +1,8 @@
+import somme as sm
+
+print(sm.somma(10),
+      sm.somma_rad(10),
+      sm.somma(50),
+      sm.somma_rad(50),
+      sm.somma(100),
+      sm.somma_rad(100))
