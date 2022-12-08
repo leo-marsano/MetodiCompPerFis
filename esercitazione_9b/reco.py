@@ -3,13 +3,16 @@ import numpy as np
 
 class Hit():
     """
-    Classe per rappresentare gli hit del rivelatore
+    Classe per rappresentare gli hit del rivelatore.
     
-    Paramtri
+    Paramtri:
+    - Id Modulo
+    - Id Sensore
+    - Time Stamp rivelazione
     -------------------------------------------
-    Id Modulo
-    Id Sensore
-    Time Stamp rivelazione
+    Metodi:
+    - simbolo '<'  -->  ordina in base al tempo di due hit
+    - simbolo '-'  -->  fa la differenza dei tempi di due hit
     """
     def __init__(self, modulo, sensore, tempo):
         self.modulo  = modulo
@@ -18,19 +21,24 @@ class Hit():
     
     def __lt__(self, other):
         return self.tempo < other.tempo
+
+    def __sub__(self, other):
+        return self.tempo - other.tempo
         
 
 class Event():
     """
-    Classe per rappresentare gli eventi del rivelatore
+    Classe per rappresentare gli eventi del rivelatore.
     
-    Paramtri
+    Paramtri:
+    - Numero hit
+    - Time Stamp del primo Hit
+    - Time Stamp dell'ultimo Hit
+    - Durata temporale
+    - Array di tutti gli Hit
     -------------------------------------------
-    Numero hit
-    Time Stamp del primo Hit
-    Time Stamp dell'ultimo Hit
-    Durata temporale
-    Array di tutti gli Hit
+    Metodi:
+    - add_hit(modulo, sensore, tempo)
     """
     def __init__(self):
         self.nhit      = 0
