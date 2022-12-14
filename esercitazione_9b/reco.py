@@ -24,6 +24,9 @@ class Hit():
 
     def __sub__(self, other):
         return self.tempo - other.tempo
+    
+    def __str__(self):
+        return print("{0},{1},{2}".format(self.modulo, self.sensore, self.tempo))
         
 
 class Event():
@@ -47,10 +50,10 @@ class Event():
         self.dt        = 0
         self.ahit      = np.empty(0)
 
-    def add_hit(self, h):
-        if ahit.size() == 0:
+    def addHit(self, h):
+        if len(self.ahit) == 0:
             self.tfhit = h.tempo
         self.tlhit = h.tempo
-        self.dt = self.tlhit-tfhit
+        self.dt = self.tlhit-self.tfhit
         self.ahit = np.append(self.ahit, h)
         self.nhit = len(self.ahit)
