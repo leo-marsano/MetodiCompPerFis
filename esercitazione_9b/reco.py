@@ -14,19 +14,19 @@ class Hit():
     - simbolo '<'  -->  ordina in base al tempo di due hit
     - simbolo '-'  -->  fa la differenza dei tempi di due hit
     """
-    def __init__(self, modulo, sensore, tempo):
-        self.modulo  = modulo
-        self.sensore = sensore
-        self.tempo   = tempo
-    
+    def __init__(self, module, sensor, time):
+        self.module   = module
+        self.sensor   = sensor
+        self.time     = time
+
     def __lt__(self, other):
-        return self.tempo < other.tempo
+        return self.time < other.time
 
     def __sub__(self, other):
-        return self.tempo - other.tempo
+        return self.time - other.time
     
     def __str__(self):
-        return print("{0},{1},{2}".format(self.modulo, self.sensore, self.tempo))
+        return ("{0}, {1}, {2}".format(self.module, self.sensor, self.time))
         
 
 class Event():
@@ -52,8 +52,8 @@ class Event():
 
     def addHit(self, h):
         if len(self.ahit) == 0:
-            self.tfhit = h.tempo
-        self.tlhit = h.tempo
+            self.tfhit = h.time
+        self.tlhit = h.time
         self.dt = self.tlhit-self.tfhit
         self.ahit = np.append(self.ahit, h)
         self.nhit = len(self.ahit)
