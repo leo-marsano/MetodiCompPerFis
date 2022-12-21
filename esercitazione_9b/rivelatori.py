@@ -152,8 +152,8 @@ aPosHitY = np.empty(0)
 aTHit = np.empty(0)
 
 
-### STEP 5
-if True:
+### plasma rappresentation of first 10 events all together (overwritten scatter plot)
+if False:
     img,ax = plt.subplots(figsize=(9,8))
     plt.scatter(aX, aY, color='lightgray', s=240, alpha=0.3)
     for i in range(10):
@@ -170,4 +170,37 @@ if True:
     plt.colorbar( ax=ax, label='Hit $t-t_{start}$ (ns)')
     plt.clim(0, 150)
     plt.savefig('plasmaPlot.png')
+    plt.show()        
+
+    
+### plasma rappresentation of first 10 events
+
+if True:
+    fig,ax = plt.subplots(2 ,5 , figsize=(25, 10))
+    for i in range(10):
+        aPosHitX = np.empty(0)
+        aPosHitY = np.empty(0)
+        aTHit = np.empty(0)
+        y = 0
+        z = i
+        if i>4 :
+            y = 1
+            z = i-5
+        ax[y,z].scatter(aX, aY, color='lightgray', s=240, alpha=0.3)
+        for h in aEve[i].ahit:
+            aPosHitX = np.append(aPosHitX, xmod[h.module]+xdet[h.sensor])
+            aPosHitY = np.append(aPosHitY, ymod[h.module]+ydet[h.sensor])
+            aTHit = np.append(aTHit, h.time-aEve[i].tfhit)
+            jj = ax[y,z].scatter(aPosHitX, aPosHitY, s=240, c=aTHit, cmap='plasma_r')
+            ax[y,z].set_title(f'event{i}')
+            ax[y,z].axvline( 0, color='lightgray')
+            ax[y,z].axhline( 0, color='lightgray')
+            ax[y,z].set_xlim(-10, 10)
+            ax[y,z].set_ylim(-10, 10)
+        
+    fig.suptitle('graphic rappresentation of first 10 events with time information')
+    fig.colorbar(jj, ax=ax.ravel().tolist(), label='Hit $t-t_{start}$ (ns)')
+    jj.set_clim(0, 150)
+    #plt.clim(0, 150)
+    plt.savefig('plasmaSubplot.png')
     plt.show()        
